@@ -276,30 +276,6 @@ const bannedwords = [
 
   ];
 
-client.on('message',  message => {
-  if(bannedwords.some(word => message.content.includes(word))) {
-    message.delete()
-    message.reply(" احترم نفسك , يمنع الشتم في خادمنا او سوف تتعرض الي  ميوت ").then(msg => {msg.delete(5000)});;
-  };
-});
-   client.on('message', message => {
-     if (message.content === "#id") {
-     let embed = new Discord.RichEmbed()
-  .setThumbnail(message.author.avatarURL)
-  .setAuthor(message.author.username)
-.setDescription("معلومات عن الحــساب")
-               .setFooter(! Gravity.., '')
-  .setColor("#9B59B6")
-  .addField("اســـم الحســاب", ${message.author.username})
-  .addField('كود الحساب الخاص', message.author.discriminator)
-  .addField("الرقـــم الشـــخصي", message.author.id)
-  .addField('بــــوت', message.author.bot)
-  .addField("تاريخ التسجيل", message.author.createdAt)
-
-
-  message.channel.sendEmbed(embed);
-    }
-});
 
 
 
