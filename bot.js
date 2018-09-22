@@ -108,5 +108,37 @@ client.on('message', message => {
   }
   }
   })
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
+         client.on('message', message => {
+            if (message.content === 'باك') {
+              message.channel.send('** ولكم نورت يقلبي**');
+              message.channel.sendFile("./photoshop.PNG");
+               
 
+            }
+});
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
+         client.on('message', message => {
+            if (message.content === 'مين يحبني ') {
+              message.channel.send('**انا**');
+              message.channel.sendFile("./photoshop.PNG");
+               
+
+            }
+});
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
+         client.on('message', message => {
+            if (message.content === '') {
+              message.channel.send('****');
+              message.channel.sendFile("./photoshop.PNG");
+               
+
+            }
+});
 client.login(process.env.BOT_TOKEN);
