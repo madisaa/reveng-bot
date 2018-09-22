@@ -265,7 +265,58 @@ client.on('message', function(msg) {
       msg.channel.send({embed:embed});
     }
   });
+client.on('message', message => {
+    if (message.content.startsWith("رابط")) {
 
+  message.channel.createInvite({
+        thing: true,
+        maxUses: 2,
+        maxAge: 86400
+    }).then(invite =>
+      message.author.sendMessage(invite.url)
+    )
+  message.channel.send("تم ارسال الرابط خاص يعمري انت ")
+
+message.author.send(**مدة الرابط : يـوم
+عدد استخدامات الرابط : 2**)
+
+
+    }
+});
+const bannedwords = [
+    "كل زق",
+    "كس امك",
+    "السبة",
+    "السبة",
+    "السبة",
+    "السبة"
+
+  ];
+
+client.on('message',  message => {
+  if(bannedwords.some(word => message.content.includes(word))) {
+    message.delete()
+    message.reply(" احترم نفسك , يمنع الشتم في خادمنا او سوف تتعرض الي  ميوت ").then(msg => {msg.delete(5000)});;
+  };
+});
+   client.on('message', message => {
+     if (message.content === "*id") {
+     let embed = new Discord.RichEmbed()
+  .setThumbnail(message.author.avatarURL)
+  .setAuthor(message.author.username)
+.setDescription("معلومات عن الحــساب")
+               .setFooter(Desert Bot., '')
+  .setColor("#9B59B6")
+  .addField("اســـم الحســاب", ${message.author.username})
+  .addField('كود الحساب الخاص', message.author.discriminator)
+  .addField("الرقـــم الشـــخصي", message.author.id)
+  .addField('بــــوت', message.author.bot)
+  .addField("تاريخ التسجيل", message.author.createdAt)
+
+
+  message.channel.sendEmbed(embed);
+    }
+});
 
 
 
