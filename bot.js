@@ -305,7 +305,7 @@ client.on('message',  message => {
   .setThumbnail(message.author.avatarURL)
   .setAuthor(message.author.username)
 .setDescription("معلومات عن الحــساب")
-               .setFooter(Desert Bot., '')
+               .setFooter(! Gravity.., '')
   .setColor("#9B59B6")
   .addField("اســـم الحســاب", ${message.author.username})
   .addField('كود الحساب الخاص', message.author.discriminator)
