@@ -27,112 +27,47 @@ client.user.setGame(`! Gravity`,"http://twitch.tv/S-F")
   console.log('')
   console.log('')
 });
-const Discord = require("discord.js");
-const client = new Discord.Client();
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
+client.on('message', message => {
+      const embed = new Discord.RichEmbed();
+    if (message.content.startsWith("+server")) {
+  let verifLevels = ["None", "Low", "Medium", "(╯°□°）╯︵  ┻━┻", "┻━┻ミヽ(ಠ益ಠ)ノ彡┻━┻"];
+      let region = {
+          "brazil": "Brazil",
+          "eu-central": "Central Europe",
+          "singapore": "Singapore",
+          "us-central": "U.S. Central",
+          "sydney": "Sydney",
+          "us-east": "U.S. East",
+          "us-south": "U.S. South",
+          "us-west": "U.S. West",
+          "eu-west": "Western Europe",
+          "vip-us-east": "VIP U.S. East",
+          "london": "London",
+          "amsterdam": "Amsterdam",
+          "hongkong": "Hong Kong"
+      };
+ 
+      var emojis;
+      if (message.guild.emojis.size === 0) {
+          emojis = 'None';
+      } else {
+          emojis = message.channel.guild.emojis.map(e => e).join(" ");
+      }
+  embed.setAuthor(message.guild.name, message.guild.iconURL ? message.guild.iconURL : client.user.displayAvatarURL)
+  .setThumbnail(message.guild.iconURL ? message.guild.iconURL : me.user.displayAvatarURL)
+  .addField("• Created", `${message.guild.createdAt.toString().substr(0, 15)},\n${checkDays(message.guild.createdAt)}`, true)
+  .addField("• ID", message.guild.id, true)
+  .addField("• Owner", `${message.guild.owner.user.username}#${message.guild.owner.user.discriminator}`, true)
+  .addField("• Region", region[message.guild.region], true)
+  .addField("• Members", message.guild.memberCount, true)
+  .addField("• Roles", message.guild.roles.size, true)
+  .addField("• Channels", message.guild.channels.size, true)
+  .addField("• Emojis", emojis, true)
+  .addField("• Verification Level", verifLevels[message.guild.verificationLevel], true)
+  .addField("• Default Channel", message.guild.defaultChannel, true)
+  .setColor(3447003)
+  message.channel.send({embed});
+  }
 });
-/*جميع الحقوق محفوظهه لريبل ولسيرفر كودز
-رآح يرسل للأونر تحذير + م يتطلب ملفات سويته لكم داتا مؤقت
-سو روم بأسم log 
-أو غيره من الكود عشان يرسل هنا التحذير
-nvm i 10 
-nvm use 10
-npm i discord.js
-*/
-var guilds = {};
-client.on('guildBanAdd', function(guild) {
-            const rebellog = client.channels.find("name", "log"),
-            Onumber = 3,
-  Otime = 10000
-guild.fetchAuditLogs({
-    type: 22
-}).then(audit => {
-    let banner = audit.entries.map(banner => banner.executor.id)
-    let bans = guilds[guild.id + banner].bans || 0 
-    guilds[guild.id + banner] = {
-        bans: 0
-    }
-      bans[guilds.id].bans += 1; 
-if(guilds[guild.id + banner].bans >= Onumber) {
-try {
-let roles = guild.members.get(banner).roles.array();
-guild.members.get(banner).removeRoles(roles);
-  guild.guild.member(banner).kick();
-
-} catch (error) {
-console.log(error)
-try {
-guild.members.get(banner).ban();
-  rebellog.send(`<@!${banner.id}>
-حآول العبث بالسيرفر @everyone`);
-guild.owner.send(`<@!${banner.id}>
-حآول العبث بالسيرفر ${guild.name}`)
-    setTimeout(() => {
- guilds[guild.id].bans = 0;
-  },Otime)
-} catch (error) {
-console.log(error)
-}
-}
-}
-})
-});
- let channelc = {};
-  client.on('channelCreate', async (channel) => {
-  const rebellog = client.channels.find("name", "log"),
-  Oguild = channel.guild,
-  Onumber = 3,
-  Otime = 10000;
-  const audit = await channel.guild.fetchAuditLogs({limit: 1});
-  const channelcreate = audit.entries.first().executor;
-  console.log(` A ${channel.type} Channel called ${channel.name} was Created By ${channelcreate.tag}`);
-   if(!channelc[channelcreate.id]) {
-    channelc[channelcreate.id] = {
-    created : 0
-     }
- }
- channelc[channelcreate.id].created += 1;
- if(channelc[channelcreate.id].created >= Onumber ) {
-    Oguild.members.get(channelcreate.id).kick();
-rebellog.send(`<@!${channelcreate.id}>
-حآول العبث بالسيرفر @everyone`);
-channel.guild.owner.send(`<@!${channelcreate.id}>
-حآول العبث بالسيرفر ${channel.guild.name}`)
-}
-  setTimeout(() => {
- channelc[channelcreate.id].created = 0;
-  },Otime)
-  });
-
-let channelr = {};
-  client.on('channelDelete', async (channel) => {
-  const rebellog = client.channels.find("name", "log"),
-  Oguild = channel.guild,
-  Onumber = 3,
-  Otime = 10000;
-  const audit = await channel.guild.fetchAuditLogs({limit: 1});
-  const channelremover = audit.entries.first().executor;
-  console.log(` A ${channel.type} Channel called ${channel.name} was deleted By ${channelremover.tag}`);
-   if(!channelr[channelremover.id]) {
-    channelr[channelremover.id] = {
-    deleted : 0
-     }
- }
- channelr[channelremover.id].deleted += 1;
- if(channelr[channelremover.id].deleted >= Onumber ) {
-  Oguild.guild.member(channelremover).kick();
-rebellog.send(`<@!${channelremover.id}>
-حآول العبث بالسيرفر @everyone`);
-channel.guild.owner.send(`<@!${channelremover.id}>
-حآول العبث بالسيرفر ${channel.guild.name}`)
-}
-  setTimeout(() => {
- channelr[channelremover.id].deleted = 0;
-  },Otime)
-  });
-  
-client.login("توكنك , YOUR TOKEN");
-//CODES ReBeL
 
 client.login(process.env.BOT_TOKEN);
